@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 # versioning is handled by bumpversion
 __version__ = "0.0.1"
@@ -19,7 +19,7 @@ setup(
     version=__version__,
     long_description=get_file("README.md"),
     license=get_file("LICENSE"),
-    packages=find_packages(),
+    packages=["pelican.plugins.data-files"],
     python_requires=">=3.6",
     install_requires=["pelican>=4.5"],
     extras_require={"dev": ["invoke", "bumpversion", "flake8", "black"]},
