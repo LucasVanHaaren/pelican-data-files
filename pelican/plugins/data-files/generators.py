@@ -72,6 +72,7 @@ class DataGenerator(Generator):
             exit(1)
 
         # return all valid files in path
+        # TODO check for duplicates (eg: profile.json and profile.yaml)
         for file in data_dir.iterdir():
             if self._is_valid_file(file):
                 valid_files.append(file)
@@ -94,15 +95,11 @@ class DataGenerator(Generator):
 
         - file -- pathlib.Path object
         """
-        data = {}
         with file.open() as f:
             try:
-                data = json.load(f)
+                return json.load(f)
             except ValueError:
-                log.error(f"{file.name} is not readable.")
-            else:
-                log.info(f"{file.name} was loaded.")
-        return data
+                return None
 
     def _add_data_to_context(self, name, data):
         """Add data into context.
@@ -120,8 +117,12 @@ class DataGenerator(Generator):
         for file in self._get_data_files():
             name = self._format_filename(file)
             data = self._read_file(file)
+
             if data:
                 self._add_data_to_context(name, data)
+                log.info(f"{file.name} was loaded.")
+            else:
+                log.error(f"{file.name} wasn't loaded.")
 
 
 def get_generators(pelican_object):
