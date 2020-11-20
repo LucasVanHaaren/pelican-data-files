@@ -9,21 +9,11 @@ def main():
     pass
 
 
-# def err(msg, die=None):
-#     """Print an error message and exits if an exit code is given"""
-#     sys.stderr.write(msg + "\n")
-#     if die:
-#         sys.exit(die if type(die) is int else 1)
-
-
-# try:
-#     import pelican
-# except ImportError:
-#     err(
-#         "Cannot import pelican.\nYou must "
-#         "install Pelican in order to run this script.",
-#         -1,
-#     )
+def _err(msg, die=None):
+    """Print an error message and exits if an exit code is given"""
+    sys.stderr.write(msg + "\n")
+    if die:
+        sys.exit(die if type(die) is int else 1)
 
 
 # global _THEMES_PATH
