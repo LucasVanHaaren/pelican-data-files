@@ -4,6 +4,8 @@
   <br>
 </h1>
 
+![pypi_badge](https://img.shields.io/pypi/v/pelican-data-files?logo=pypi&logoColor=yellow&style=for-the-badge)
+
 > Pelican plugin that allows to load data from files like JSON or YAML.
 
 This plugin loads all the data files in the `data /` directory, and makes them accessible via the context with the prefix `DATA_` followed by the name of the file. This is roughly the default behavior of the well known [Jekyll](https://jekyllrb.com/) static site generator.
