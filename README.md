@@ -1,7 +1,8 @@
+<!-- markdownlint-disable MD041 -->
 ![pelican-data-files_banner](https://user-images.githubusercontent.com/29121316/99832308-a29d3a80-2b60-11eb-9e44-1ba3438bbe6b.png)
 
-<!-- markdownlint-disable MD041 -->
 ![pypi_badge](https://img.shields.io/pypi/v/pelican-data-files?logo=pypi&logoColor=yellow&style=for-the-badge)
+![licence_badge](https://img.shields.io/pypi/l/pelican-data-files?style=for-the-badge)
 
 ---
 
@@ -11,11 +12,11 @@ This plugin loads all the data files in the `data /` directory, and makes them a
 
 For example, the data of a `profile.json` file will be accessible from any template via `DATA_PROFILE`.
 
-## How to use
+## Usage
 
-You can use it directly on your personnal project, or to build a theme.
+You can use it directly on a personnal project, or to build a theme.
 
-### For my personnal project
+### For a personnal project
 
 All you have to do is install package with pip:
 
@@ -23,7 +24,7 @@ All you have to do is install package with pip:
 pip install pelican-data-files
 ```
 
-### For building a theme
+### To build a theme
 
 First set the plugin as an install requirement, for exemple with a package managed with setuptools (`setup.py`):
 
