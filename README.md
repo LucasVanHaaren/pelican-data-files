@@ -1,9 +1,6 @@
-<!-- markdownlint-disable MD033 -->
-<h1 align="center">
-  <br>
-    <img src="https://user-images.githubusercontent.com/29121316/99832308-a29d3a80-2b60-11eb-9e44-1ba3438bbe6b.png" alt="pelican-data-files-logo" width="700"></a>
-  <br>
-</h1>
+![pelican-data-files_banner](https://user-images.githubusercontent.com/29121316/99832308-a29d3a80-2b60-11eb-9e44-1ba3438bbe6b.png)
+
+---
 
 <!-- markdownlint-disable MD041 -->
 ![pypi_badge](https://img.shields.io/pypi/v/pelican-data-files?logo=pypi&logoColor=yellow&style=for-the-badge)
