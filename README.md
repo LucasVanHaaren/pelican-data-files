@@ -14,4 +14,35 @@ This plugin loads all the data files in the `data /` directory, and makes them a
 
 For example, the data of a `profile.json` file will be accessible from any template via `DATA_PROFILE`.
 
+## How to use
+
 You can use it directly on your personnal project, or to build a theme.
+
+### For my personnal project
+
+All you have to do is install package with pip:
+
+```bash
+pip install pelican-data-files
+```
+
+### For building a theme
+
+First set the plugin as an install requirement, for exemple with a package managed with setuptools (`setup.py`):
+
+```python
+...
+install_requires=[
+  "pelican",
+  "pelican-data-files"
+],
+...
+```
+
+Next, inform your users to run the following command in order to fetch sample data files of your theme:
+
+```bash
+pelican-data-files --fetch <THEME_NAME>
+```
+
+This will copy the `data/` folder of the theme, into the `data/` folder of their Pelican project.
