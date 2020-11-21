@@ -10,7 +10,7 @@
 
 > Pelican plugin that allows to load data from files like JSON or YAML.
 
-This plugin loads all the data files found in the project's `data/` directory, and makes them accessible in jinja templates by injecting it in context (with the prefix `DATA_` followed by the name of the file).
+This plugin loads all the data files found in the project's `data/` directory, and makes them accessible in jinja templates by injecting them into the context (with the prefix `DATA_` followed by the name of the file).
 
 This is roughly the default behavior of the well known [Jekyll](https://jekyllrb.com/) static site generator.
 
@@ -40,7 +40,7 @@ pelican-plugins
 
 ### Usage
 
-Place some JSON valid files into `data/` folder. Then you can acces your data by getting `DATA_<FILE_NAME>["<VAR_NAME>"]`
+Place some JSON valid files into `data/` folder. Then you can acces your data by querying `DATA_<FILE_NAME>["<VAR_NAME>"]`
 
 For example, consider a simple file named `profile.json` with the followed content:
 
@@ -64,13 +64,13 @@ DATA_PROFILE["age"] => 25
 DATA_PROFILE["contact"]["mail"] => "john@doe.com"
 ```
 
-So can access all the data in `data/` folder in jinja templates from pelican context.
+So, you can access all the data in `data/` folder in jinja templates from pelican context.
 
 ### Build a theme
 
 It is of course possible to create a theme that uses this plugin, it will not necessarily be dependent on it but must in all cases be designed for. (Usage of `DATA_` prefix in theme templates and provide sample data files)
 
-First set the plugin as an install requirement, for exemple with a package managed with setuptools (`setup.py`):
+First set the plugin as an install requirement, for example with a package managed with setuptools (`setup.py`):
 
 ```python
 ...
