@@ -80,11 +80,12 @@ def _fetch_files(theme):
         )
     except FileExistsError:
         _err(
-            f"Cannot copy {theme.name} files, directory {DEST_DATA_DIR} already exists.",
+            f"Cannot copy '{theme.name}' files, "
+            f"directory '{DEST_DATA_DIR}' already exists.",
             die=2,
         )
     else:
-        print(f"{theme.name} files successfully fetched.")
+        print(f"'{theme.name}' files successfully fetched.")
 
 
 def main():
