@@ -3,6 +3,8 @@
 
 ![pypi_badge](https://img.shields.io/pypi/v/pelican-data-files?logo=pypi&logoColor=yellow&style=for-the-badge)
 ![licence_badge](https://img.shields.io/pypi/l/pelican-data-files?style=for-the-badge)
+![open_issues_badge](https://img.shields.io/github/issues-raw/lucasvanhaaren/pelican-data-files?color=orange&logo=github&style=for-the-badge)
+![closed_issues_badge](https://img.shields.io/github/issues-closed-raw/lucasvanhaaren/pelican-data-files?color=green&logo=github&style=for-the-badge)
 
 ---
 
