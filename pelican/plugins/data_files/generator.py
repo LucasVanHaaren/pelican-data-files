@@ -1,6 +1,7 @@
+import sys
+import os
 import logging
 import pathlib
-from sys import exit
 
 from pelican.generators import Generator
 
@@ -54,25 +55,38 @@ class DataGenerator(Generator):
         # Check if path exists
         if not data_dir.exists():
             log.error("pelican-data-files: DATA_FILES_DIR path doesn't exists.")
-            exit(1)
+            sys.exit(1)
 
         if not data_dir.is_dir():
             log.error("pelican-data-files: DATA_FILES_DIR path isn't a directory.")
-            exit(1)
+            sys.exit(1)
 
         # Initialize parser object
         obj = DataParser()
 
-        # TODO check for duplicates (eg: profile.json and profile.yaml)
-        for file in data_dir.iterdir():
-            # Determine name of context variable
-            name = file.stem.replace(".", "_").upper()
+        # Sort files by modified time
+        files = sorted(data_dir.iterdir(), key=os.path.getmtime, reverse=True)
+
+        # Create data array
+        buffer = []
+
+        for file in files:
+            # Skip duplicate files
+            if file.stem in buffer:
+                continue
 
             # Load data from file
             data = obj.load(file)
 
-            # If file is supported ..
             if data is not None:
-                # .. add its data to context
+                # Determine context variable
+                name = file.stem.replace(".", "_").upper()
+
+                # Add data to context
                 self.context[f"DATA_{name}"] = data
+
+                # Remember filename
+                buffer.append(file.stem)
+
+                # Report back
                 log.info(f"{file.name} was loaded.")
