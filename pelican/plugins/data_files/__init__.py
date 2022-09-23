@@ -1,5 +1,10 @@
 from pelican import signals
-from .generators import get_generators
+
+from .generator import DataGenerator
+
+
+def get_generators(pelican_object):
+    return DataGenerator
 
 
 def register():
