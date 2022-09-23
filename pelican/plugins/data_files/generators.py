@@ -3,7 +3,7 @@ import pathlib
 import json
 from sys import exit
 from pelican.generators import Generator
-from .file_formats import JSON
+from .file_formats import SUPPORTED_FORMATS
 
 
 log = logging.getLogger(__name__)
@@ -15,7 +15,6 @@ class DataGenerator(Generator):
     Load data from files
     """
 
-    SUPPORTED_FORMATS = [JSON]
     CONTEXT_PREFIX = "DATA_"
 
     def __init__(
@@ -39,45 +38,6 @@ class DataGenerator(Generator):
         )
         log.info("PLUGIN: pelican-data-files was successfully loaded")
         self.settings.setdefault("DATA_FILES_DIR", "data")
-
-    def _is_valid_file(self, file):
-        """Checks if file format is supported.
-
-        params:
-
-        - file -- pathlib.Path object
-        """
-        for file_format in self.SUPPORTED_FORMATS:
-            if file.suffix in file_format["extensions"]:
-                return True
-        return False
-
-    def _get_data_files(self):
-        """Return list of valid files to load into context"""
-
-        data_dir = pathlib.Path(self.settings["DATA_FILES_DIR"])
-        valid_files = []
-
-        # turn path into absolute if not already
-        if not data_dir.is_absolute():
-            data_dir = pathlib.Path(self.settings["PATH"]).joinpath(data_dir)
-
-        # check if path exists
-        if not data_dir.exists():
-            log.error("pelican-data-files: DATA_FILES_DIR path doesn't exists.")
-            exit(1)
-
-        if not data_dir.is_dir():
-            log.error("pelican-data-files: DATA_FILES_DIR path isn't a directory.")
-            exit(1)
-
-        # return all valid files in path
-        # TODO check for duplicates (eg: profile.json and profile.yaml)
-        for file in data_dir.iterdir():
-            if self._is_valid_file(file):
-                valid_files.append(file)
-
-        return valid_files
 
     def _format_filename(self, file):
         """Format context var name from filename.
@@ -114,16 +74,37 @@ class DataGenerator(Generator):
 
     def generate_context(self):
         """Generate context from data files"""
-        for file in self._get_data_files():
-            name = self._format_filename(file)
-            data = self._read_file(file)
 
-            if data:
+        data_dir = pathlib.Path(self.settings["DATA_FILES_DIR"])
+
+        # turn path into absolute if not already
+        if not data_dir.is_absolute():
+            data_dir = pathlib.Path(self.settings["PATH"]).joinpath(data_dir)
+
+        # check if path exists
+        if not data_dir.exists():
+            log.error("pelican-data-files: DATA_FILES_DIR path doesn't exists.")
+            exit(1)
+
+        if not data_dir.is_dir():
+            log.error("pelican-data-files: DATA_FILES_DIR path isn't a directory.")
+            exit(1)
+
+        # return all valid files in path
+        # TODO check for duplicates (eg: profile.json and profile.yaml)
+        for file in data_dir.iterdir():
+            for file_format in SUPPORTED_FORMATS:
+                # Skip invalid formats
+                if file.suffix.lower() not in file_format["extensions"]:
+                    continue
+
+                name = self._format_filename(file)
+
+                with file.open('rb') as f:  # TOML requires binary mode
+                    data = file_format["parser"](f)
+
                 self._add_data_to_context(name, data)
                 log.info(f"{file.name} was loaded.")
-            else:
-                log.error(f"{file.name} wasn't loaded.")
-
 
 def get_generators(pelican_object):
     return DataGenerator
