@@ -78,15 +78,22 @@ class DataGenerator(Generator):
             # Load data from file
             data = obj.load(file)
 
-            if data is not None:
-                # Determine context variable
-                name = file.stem.replace(".", "_").upper()
-
-                # Add data to context
-                self.context[f"DATA_{name}"] = data
-
-                # Remember filename
-                buffer.append(file.stem)
-
+            # Check whether file (type) is supported
+            if data is None:
                 # Report back
-                log.info(f"{file.name} was loaded.")
+                log.info(f"{file.name} wasn't loaded.")
+
+                # Move on to next file
+                continue
+
+            # Determine context variable
+            name = file.stem.replace(".", "_").upper()
+
+            # Add data to context
+            self.context[f"DATA_{name}"] = data
+
+            # Remember filename
+            buffer.append(file.stem)
+
+            # Report back
+            log.info(f"{file.name} was loaded.")
