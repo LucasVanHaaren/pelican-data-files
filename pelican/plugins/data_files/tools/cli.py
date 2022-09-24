@@ -24,7 +24,7 @@ except ImportError:
 SRC_DATA_DIR = "data"
 
 # where data file are copied in pelican project directory
-DEST_DATA_DIR = "data"
+DEST_DATA_DIR = "content/data"
 
 PELICAN_ROOT_DIR = Path(pelican.__file__).absolute().parent
 PELICAN_THEMES_DIR = PELICAN_ROOT_DIR.joinpath("themes")

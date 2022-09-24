@@ -18,7 +18,7 @@ For example, the data of a `profile.json` file will be accessible from any templ
 
 ## Getting started
 
-You can use it directly in a personnal project, or to build a [Pelican theme](https://docs.getpelican.com/en/stable/themes.html).
+You can use it directly in a personal project or to build a [Pelican theme](https://docs.getpelican.com/en/stable/themes.html).
 
 This plugin is avaiable as a [python package](https://pypi.org/project/pelican-data-files/) hosted on PyPI.
 
@@ -30,9 +30,24 @@ All you have to do is install the latest version of the package with pip:
 pip install pelican-data-files
 ```
 
-By default, Pelican will automatically discover and register the plugin. (see more [here](https://docs.getpelican.com/en/stable/plugins.html#how-to-use-plugins))
+For additional filetypes, you may install variants like this:
 
-To be sure, run this command which displays all the registered plugins, pelican-data-files should be printed:
+```bash
+# TOML
+pip install pelican-data-files[toml]
+
+# YAML
+pip install pelican-data-files[yaml]
+
+# Both
+pip install pelican-data-files[toml,yaml]
+```
+
+**Note**: When using multiple data handlers, files with the same name will be prioritized by modified date, so between `profile.json` and `profile.yaml`, only the newer / more recently changed one will be picked up!
+
+By default, Pelican will automatically discover and register the plugin (see more [here](https://docs.getpelican.com/en/stable/plugins.html#how-to-use-plugins)).
+
+To be sure, run this command which displays all the registered plugins, `pelican-data-files` should be printed:
 
 ```bash
 pelican-plugins
@@ -70,7 +85,7 @@ So, you can access all the data in `data/` folder in jinja templates from pelica
 
 It is of course possible to create a theme that uses this plugin, it will not necessarily be dependent on it but must in all cases be designed for. (Usage of `DATA_` prefix in theme templates and provide sample data files)
 
-First set the plugin as an install requirement, for example with a package managed with setuptools (`setup.py`):
+First set the plugin (or its variants, see above) as an install requirement, for example with a package managed with setuptools (`setup.py`):
 
 ```python
 ...
@@ -89,7 +104,7 @@ Users can easily fetch the files in their pelican project by running the followi
 pelican-data-files --fetch <THEME_NAME>
 ```
 
-This will copy the `data/` folder of the theme, into the `data/` folder of their Pelican project.
+This will copy the `data/` folder of the theme into the `data/` folder of their Pelican project.
 
 They will only have to modify the files and generate their site.
 
