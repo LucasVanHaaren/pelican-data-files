@@ -10,7 +10,7 @@
 
 > Pelican plugin that allows to load data from files like JSON or YAML.
 
-This plugin loads all the data files found in the project's `data/` directory, and makes them accessible in jinja templates by injecting them into the context (with the prefix `DATA_` followed by the name of the file).
+This plugin loads all the data files found in the project's `content/data/` directory, and makes them accessible in jinja templates by injecting them into the context (with the prefix `DATA_` followed by the name of the file).
 
 This is roughly the default behavior of the well known [Jekyll](https://jekyllrb.com/) static site generator.
 
