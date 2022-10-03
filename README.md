@@ -104,7 +104,7 @@ Users can easily fetch the files in their pelican project by running the followi
 pelican-data-files --fetch <THEME_NAME>
 ```
 
-This will copy the `data/` folder of the theme into the `data/` folder of their Pelican project.
+This will copy the `data/` folder of the theme into the `content/data/` folder of their Pelican project.
 
 They will only have to modify the files and generate their site.
 
