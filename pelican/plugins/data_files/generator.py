@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 import logging
 import pathlib
 
@@ -65,14 +66,20 @@ class DataGenerator(Generator):
         obj = DataParser()
 
         # Sort files by modified time
-        files = sorted(data_dir.iterdir(), key=os.path.getmtime, reverse=True)
+        files = sorted(data_dir.rglob("*"), key=os.path.getmtime, reverse=True)
 
         # Create data array
         buffer = []
 
         for file in files:
+
+            # Check whether file is a directory
+            if file.is_dir():
+                # Move on to next file
+                continue
+
             # Skip duplicate files
-            if file.stem in buffer:
+            if file.with_suffix('') in buffer:
                 continue
 
             # Load data from file
@@ -81,19 +88,20 @@ class DataGenerator(Generator):
             # Check whether file (type) is supported
             if data is None:
                 # Report back
-                log.info(f"{file.name} wasn't loaded.")
+                log.info(f"{file} wasn't loaded.")
 
                 # Move on to next file
                 continue
 
             # Determine context variable
-            name = file.stem.replace(".", "_").upper()
+            name = str(file.relative_to(data_dir).with_suffix(''))
+            name = re.sub('[^0-9a-zA-Z]+', '_', name).upper()
 
             # Add data to context
             self.context[f"DATA_{name}"] = data
 
             # Remember filename
-            buffer.append(file.stem)
+            buffer.append(file.with_suffix(''))
 
             # Report back
-            log.info(f"{file.name} was loaded.")
+            log.info(f"{file} was loaded.")
