@@ -1,3 +1,11 @@
+> [!WARNING] 
+> **This project is no longer maintained.**
+> The repository has been archived and is read-only. No further updates, issues, or pull requests will be accepted. PyPI packages will still remain available but will be marked as inactive.
+>
+> If you are interested in continuing development, please feel free to fork this repository and maintain your own version. 
+>
+> Thank you to everyone who used and contributed to this project :heart:
+
 <!-- markdownlint-disable MD041 -->
 ![pelican-data-files_banner](https://user-images.githubusercontent.com/29121316/99832308-a29d3a80-2b60-11eb-9e44-1ba3438bbe6b.png)
 
